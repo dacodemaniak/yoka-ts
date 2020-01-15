@@ -1,4 +1,5 @@
 import * as $ from 'jquery';
+import * as materialize from 'materialize-css';
 
 /**
  * @name EanFormModule
@@ -10,11 +11,17 @@ import * as $ from 'jquery';
  */
 export class EanFormModule {
     private readonly eanField: JQuery = $('#ean');
+    private readonly image: JQuery = $('#product-image');
+    private readonly contentTitle: JQuery = $('.card-content .card-title');
+    private readonly revealTitle: JQuery = $('.card-reveal .card-title');
+
     private authorizedChars: number[] = new Array(
         8, 37, 46, 16
     );
 
     public constructor() {
+        materialize.AutoInit();
+
         this.userEntryHandler();
     }
 
@@ -41,6 +48,15 @@ export class EanFormModule {
                                     console.log('Sorry guy, try again!');
                                 } else {
                                     console.log(`Product found : ${response.product.product_name}`);
+                                    let icon: JQuery;
+                                    
+                                    this.image.attr('src', response.product.image_url);
+
+                                    icon = this.contentTitle.children('i');
+                                    this.contentTitle.html(response.product.product_name).append(icon);
+
+                                    icon = this.revealTitle.children('i');
+                                    this.revealTitle.html(response.product.product_name).append(icon);
                                 }
                             }, // Callback invoked if call is sucessfull
                             error: (xhr: any, error: any) => {

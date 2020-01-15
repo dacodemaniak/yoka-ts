@@ -4,8 +4,13 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Yoka - What's inside your plates</title>
+
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="./assets/css/vendors~main.css" rel="stylesheet">
 
     <!-- Add js sources -->
     <script src="./dist/js/app.chunk.js"></script>
@@ -17,6 +22,27 @@
         <form>
             <input type="text" maxlength="13" id="ean" placeholder="Entrez un code EAN">
         </form>
+
+        <div class="card">
+            <div class="card-responsive-img waves-effect waves-block waves-light">
+              <img class="activator responsive-img" src="" id="product-image">
+            </div>
+
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">
+                  <i class="material-icons right">more_vert</i>
+                </span>
+              <p><a href="#">This is a link</a></p>
+            </div>
+
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">
+                  <i class="material-icons right">close</i>
+                </span>
+              <p>Here is some more information about this product that is only revealed once clicked on.</p>
+            </div>
+
+          </div>
     </div>
 </body>
 

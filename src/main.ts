@@ -1,6 +1,8 @@
 import * as $ from 'jquery';
 import { EanFormModule } from './modules/ean-form-module';
 
+import './../node_modules/materialize-css/sass/materialize.scss';
+
 /**
  * @name Main
  * @author Aélion - Jan. 2020 - jla.webprojet@gmail.com
