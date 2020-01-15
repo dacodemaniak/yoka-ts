@@ -1,4 +1,5 @@
 import * as $ from 'jquery';
+import { EanFormModule } from './modules/ean-form-module';
 
 /**
  * @name Main
@@ -8,7 +9,7 @@ import * as $ from 'jquery';
  */
 export class Main {
     public constructor() {
-        console.log('Hello Yoka !');
+        new EanFormModule();
     }
 }
 
