@@ -29,17 +29,23 @@ export class EanFormModule {
                 ) {
                     // My stuff here!
                     if (this.eanField.val().toString().length == 13) {
-                        console.log('Have to do something!');
+                        const uri: string = 'https://world.openfoodfacts.org/api/v0/product/' + this.eanField.val() + '.json';
+                        const verb: string = 'get';
+                        // Transport request to the server and manage response from the server
+                        $.ajax({
+                            url: uri, // URI to reach (route to a server)
+                            method: verb, // How to talk to the server
+                            dataType: 'json', // What kind of data is expected
+                            success: (response: any) => {
+                                alert('Product found !');
+                            }, // Callback invoked if call is sucessfull
+                            error: (xhr: any, error: any) => {
+                                alert('Server error returned');
+                            } // If the server is a bad boy
+                        });
                     }
                 } else {
-                    if (this.authorizedChars.indexOf(event.which, 0) == -1) {
-                        const valLength: number = this.eanField.val().toString().length;
-                        if (valLength > 1) {
-                            this.eanField.val(this.eanField.val().toString().substring(valLength - 1));
-                        } else {
-                            this.eanField.val('');
-                        }
-                    }
+                    // J'ai un truc à faire ici, mais je ne sais pas ce que c'est...
                 }
             }
         );
