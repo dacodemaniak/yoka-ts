@@ -22,7 +22,6 @@ export class EanFormModule {
         this.eanField.on(
             'keyup',
             (event: any): void => {
-                console.log(`Event : ${JSON.stringify(event.which)}`);
                 if (
                     (event.which >= 96 && event.which <= 105) || 
                     (event.which >= 48 && event.which <= 57)
@@ -37,7 +36,12 @@ export class EanFormModule {
                             method: verb, // How to talk to the server
                             dataType: 'json', // What kind of data is expected
                             success: (response: any) => {
-                                alert('Product found !');
+                                const serverStatus: string = response.status_verbose; // Some response attribute
+                                if (serverStatus == 'product not found') {
+                                    console.log('Sorry guy, try again!');
+                                } else {
+                                    console.log(`Product found : ${response.product.product_name}`);
+                                }
                             }, // Callback invoked if call is sucessfull
                             error: (xhr: any, error: any) => {
                                 alert('Server error returned');
