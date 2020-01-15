@@ -8,7 +8,7 @@ import * as $ from 'jquery';
  */
 export class Main {
     public constructor() {
-
+        console.log('Hello Yoka !');
     }
 }
 
