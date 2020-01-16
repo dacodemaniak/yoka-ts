@@ -1,3 +1,5 @@
+import { NovaGroupInterface } from "./nova-group-interface";
+
 /**
  * @name ProductModel
  * @author Aélion - Jan. 2020
@@ -24,7 +26,7 @@ export class ProductModel {
         return this.image_url;
     }
 
-    public get nova(): any {
+    public get nova(): NovaGroupInterface {
         if (this.nova_group == 1) {
             return {
                 indice: this.nova_group,
@@ -56,8 +58,12 @@ export class ProductModel {
         }
     }
 
-    public get nutriscore(): string {
-        return this.nutriscore_grade;
+    public get nutriscore(): string | boolean {
+        if (this.nutriscore_grade) {
+            return this.nutriscore_grade;
+        }
+
+        return false;
     }
 
     public deserialize(datas: any): ProductModel {

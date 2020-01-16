@@ -65,7 +65,7 @@ export class EanFormModule {
                                     .addClass('badge')
                                     .css('background-color', product.nova.color)
                                     .css('color', 'white')
-                                    .html(product.nova.indice);
+                                    .html(product.nova.indice.toString());
                                 nova.append(badge);
 
                                 // Nutriscore
@@ -73,7 +73,8 @@ export class EanFormModule {
                                 nutriscore.children().remove();
                                 badge = $('<span>')
                                     .addClass('badge').addClass('blue')
-                                    .html(product.nutriscore.toUpperCase());
+                                    .css('color', 'white')
+                                    .html(product.nutriscore ? product.nutriscore.toString().toUpperCase() : 'No datas available for nutriscore');
                                 nutriscore.append(badge);
 
                             } else { // Promise is null... tell the user 

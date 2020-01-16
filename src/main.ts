@@ -1,4 +1,6 @@
 import * as $ from 'jquery';
+import * as materialize from 'materialize-css';
+
 import { EanFormModule } from './modules/ean-form-module';
 
 import './../node_modules/materialize-css/sass/materialize.scss';
@@ -12,6 +14,8 @@ import './scss/main.scss';
  */
 export class Main {
     public constructor() {
+        materialize.AutoInit();
+        $('.sidenav').sidenav();
         new EanFormModule();
     }
 }
@@ -20,5 +24,6 @@ export class Main {
 // Create a new instance of the Main class
 // after the document was completely loaded
 $(document).ready(() => {
-   const app: Main = new Main(); 
+   const app: Main = new Main();
+   
 });
