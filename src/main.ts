@@ -14,8 +14,8 @@ import './scss/main.scss';
  */
 export class Main {
     public constructor() {
-        materialize.AutoInit();
-        $('.sidenav').sidenav();
+        console.log('Init menu');
+
         new EanFormModule();
     }
 }
@@ -23,7 +23,9 @@ export class Main {
 // App bootstraping with jQuery
 // Create a new instance of the Main class
 // after the document was completely loaded
+
 $(document).ready(() => {
+    materialize.AutoInit();
    const app: Main = new Main();
    
 });

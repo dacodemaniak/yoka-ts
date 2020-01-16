@@ -29,6 +29,8 @@ export class EanFormModule {
         this.productService = new ProductService(); // Service instanciation i.e Dependency Injection
 
         this.userEntryHandler();
+
+        this.redoSearch();
     }
 
     private userEntryHandler(): void {
@@ -45,8 +47,15 @@ export class EanFormModule {
                         this.productService.code = this.eanField.val().toString();
 
                         this.productService.processApi().then((product: ProductModel) => {
+                            // Activate loader
+                            $('div.preloader-wrapper').addClass('active');
                             // Spy product...
                             if (product) { // Promise is not null
+
+                                // Make the input disabled and readonly
+                                this.eanField
+                                    .attr('readonly', 'readonly');
+
                                 let icon: JQuery;
                                     
                                 this.image.attr('src', product.image);
@@ -77,8 +86,13 @@ export class EanFormModule {
                                     .html(product.nutriscore ? product.nutriscore.toString().toUpperCase() : 'No datas available for nutriscore');
                                 nutriscore.append(badge);
 
-                            } else { // Promise is null... tell the user 
+                                // Reveal the card, remove the loader
+                                $('div.preloader-wrapper').removeClass('active');
+                                $('.card').removeClass('hidden');
 
+                            } else { // Promise is null... tell the user 
+                                // Just remove the loader
+                                $('div.preloader-wrapper').removeClass('active');
                             }
                         });
                     }
@@ -87,5 +101,19 @@ export class EanFormModule {
                 }
             }
         );
+    }
+
+    private redoSearch(): void {
+        this.eanField.on(
+            'click',
+            (event: any): void => {
+                if (this.eanField.attr('readonly')) {
+                    this.eanField.removeAttr('readonly');
+                    this.eanField.val('');
+                    // Removes the previous card
+                    $('div.card').addClass('hidden');
+                }
+            }
+        )
     }
 }
