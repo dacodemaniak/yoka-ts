@@ -59,6 +59,7 @@ export class EanFormModule {
                                 
                                 // Nova group
                                 const nova: JQuery = $('#nova');
+                                nova.children().remove();
                                 let badge: JQuery = $('<span>');
                                 badge
                                     .addClass('badge')
@@ -69,6 +70,7 @@ export class EanFormModule {
 
                                 // Nutriscore
                                 const nutriscore: JQuery = $('#nutriscore');
+                                nutriscore.children().remove();
                                 badge = $('<span>')
                                     .addClass('badge').addClass('blue')
                                     .html(product.nutriscore.toUpperCase());
