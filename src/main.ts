@@ -2,6 +2,7 @@ import * as $ from 'jquery';
 import { EanFormModule } from './modules/ean-form-module';
 
 import './../node_modules/materialize-css/sass/materialize.scss';
+import './scss/main.scss';
 
 /**
  * @name Main

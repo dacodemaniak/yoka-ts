@@ -1,5 +1,7 @@
 import * as $ from 'jquery';
 import * as materialize from 'materialize-css';
+import { ProductService } from './../services/product-service';
+import { ProductModel } from './../models/product-model';
 
 /**
  * @name EanFormModule
@@ -15,12 +17,16 @@ export class EanFormModule {
     private readonly contentTitle: JQuery = $('.card-content .card-title');
     private readonly revealTitle: JQuery = $('.card-reveal .card-title');
 
+    private productService: ProductService;
+
     private authorizedChars: number[] = new Array(
         8, 37, 46, 16
     );
 
     public constructor() {
         materialize.AutoInit();
+        
+        this.productService = new ProductService(); // Service instanciation i.e Dependency Injection
 
         this.userEntryHandler();
     }
@@ -35,33 +41,42 @@ export class EanFormModule {
                 ) {
                     // My stuff here!
                     if (this.eanField.val().toString().length == 13) {
-                        const uri: string = 'https://world.openfoodfacts.org/api/v0/product/' + this.eanField.val() + '.json';
-                        const verb: string = 'get';
-                        // Transport request to the server and manage response from the server
-                        $.ajax({
-                            url: uri, // URI to reach (route to a server)
-                            method: verb, // How to talk to the server
-                            dataType: 'json', // What kind of data is expected
-                            success: (response: any) => {
-                                const serverStatus: string = response.status_verbose; // Some response attribute
-                                if (serverStatus == 'product not found') {
-                                    console.log('Sorry guy, try again!');
-                                } else {
-                                    console.log(`Product found : ${response.product.product_name}`);
-                                    let icon: JQuery;
+                        
+                        this.productService.code = this.eanField.val().toString();
+
+                        this.productService.processApi().then((product: ProductModel) => {
+                            // Spy product...
+                            if (product) { // Promise is not null
+                                let icon: JQuery;
                                     
-                                    this.image.attr('src', response.product.image_url);
+                                this.image.attr('src', product.image);
 
-                                    icon = this.contentTitle.children('i');
-                                    this.contentTitle.html(response.product.product_name).append(icon);
+                                icon = this.contentTitle.children('i');
+                                this.contentTitle.html(product.title).append(icon);
 
-                                    icon = this.revealTitle.children('i');
-                                    this.revealTitle.html(response.product.product_name).append(icon);
-                                }
-                            }, // Callback invoked if call is sucessfull
-                            error: (xhr: any, error: any) => {
-                                alert('Server error returned');
-                            } // If the server is a bad boy
+                                icon = this.revealTitle.children('i');
+                                this.revealTitle.html(product.title).append(icon);
+                                
+                                // Nova group
+                                const nova: JQuery = $('#nova');
+                                let badge: JQuery = $('<span>');
+                                badge
+                                    .addClass('badge')
+                                    .css('background-color', product.nova.color)
+                                    .css('color', 'white')
+                                    .html(product.nova.indice);
+                                nova.append(badge);
+
+                                // Nutriscore
+                                const nutriscore: JQuery = $('#nutriscore');
+                                badge = $('<span>')
+                                    .addClass('badge').addClass('blue')
+                                    .html(product.nutriscore.toUpperCase());
+                                nutriscore.append(badge);
+
+                            } else { // Promise is null... tell the user 
+
+                            }
                         });
                     }
                 } else {
