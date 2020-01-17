@@ -19,11 +19,11 @@ export class ProductModel {
     }
 
     public get image(): string {
-        if (this.image_url) {
-            return this.image_url;
+        if (this.image_front_thumb_url) {
+            return this.image_front_thumb_url;
         }
 
-        return this.image_front_thumb_url;
+        return this.image_url;
     }
 
     public get nova(): NovaGroupInterface {

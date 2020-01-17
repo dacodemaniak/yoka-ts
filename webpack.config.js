@@ -6,7 +6,7 @@ const webpack = require('webpack');
 module.exports = {
     entry: './src/main.ts',
     output: {
-        path: path.resolve(__dirname, 'dist/js'),
+        path: path.resolve(__dirname, 'dist'),
         filename: 'app.js',
         chunkFilename: "app.chunk.js"
     },
@@ -26,6 +26,10 @@ module.exports = {
                 use: 'ts-loader',
                 exclude: /node_modules/
             },
+            { test: /\.ttf$/, use: 'raw-loader' },
+            { test: /\.eot$/, use: 'raw-loader' },
+            { test: /\.woff2$/, use: 'raw-loader' },
+            { test: /\.woff$/, use: 'raw-loader' },
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [{

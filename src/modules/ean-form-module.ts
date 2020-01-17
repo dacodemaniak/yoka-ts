@@ -37,13 +37,12 @@ export class EanFormModule {
         this.eanField.on(
             'keyup',
             (event: any): void => {
-                if (
-                    (event.which >= 96 && event.which <= 105) || 
-                    (event.which >= 48 && event.which <= 57)
-                ) {
-                    // My stuff here!
-                    if (this.eanField.val().toString().length == 13) {
-                        
+                // My stuff here!
+                if (this.eanField.val().toString().length == 13) {
+                    if (
+                        this.eanField.val().toString() >= '0000000000000' &&
+                        this.eanField.val().toString() <= '9999999999999'
+                    ) {
                         this.productService.code = this.eanField.val().toString();
 
                         this.productService.processApi().then((product: ProductModel) => {
@@ -51,13 +50,12 @@ export class EanFormModule {
                             $('div.preloader-wrapper').addClass('active');
                             // Spy product...
                             if (product) { // Promise is not null
-
                                 // Make the input disabled and readonly
                                 this.eanField
                                     .attr('readonly', 'readonly');
 
                                 let icon: JQuery;
-                                    
+                                        
                                 this.image.attr('src', product.image);
 
                                 icon = this.contentTitle.children('i');
@@ -65,7 +63,7 @@ export class EanFormModule {
 
                                 icon = this.revealTitle.children('i');
                                 this.revealTitle.html(product.title).append(icon);
-                                
+                                    
                                 // Nova group
                                 const nova: JQuery = $('#nova');
                                 nova.children().remove();
@@ -89,15 +87,12 @@ export class EanFormModule {
                                 // Reveal the card, remove the loader
                                 $('div.preloader-wrapper').removeClass('active');
                                 $('.card').removeClass('hidden');
-
                             } else { // Promise is null... tell the user 
                                 // Just remove the loader
                                 $('div.preloader-wrapper').removeClass('active');
                             }
                         });
                     }
-                } else {
-                    // J'ai un truc à faire ici, mais je ne sais pas ce que c'est...
                 }
             }
         );

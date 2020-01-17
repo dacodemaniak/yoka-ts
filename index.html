@@ -14,9 +14,12 @@
   <link href="./assets/css/custom.css" rel="stylesheet">
 
   <!-- Add js sources -->
-  <script src="./dist/js/app.chunk.js"></script>
-  <script src="./dist/js/app.js"></script>
-
+  <script src="./app.chunk.js"></script>
+  <script src="./app.js"></script>
+  
+  <!-- Link manifest.json -->
+  <link rel="manifest" href="./manifest.json">
+  
   <!-- icons -->
   <link rel="apple-touch-icon" sizes="57x57" href="./assets/icons/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="./assets/icons/apple-icon-60x60.png">
@@ -31,10 +34,11 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="./assets/icons/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./assets/icons/favicon-16x16.png">
-  <link rel="manifest" href="/manifest.json">
+  
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="./assets/icons/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
+
 </head>
 
 <body>
@@ -59,7 +63,7 @@
   <div class="container">
 
     <form>
-      <input type="text" maxlength="13" id="ean" placeholder="Entrez un code EAN">
+      <input type="number" maxlength="13" id="ean" placeholder="Entrez un code EAN">
     </form>
 
     <div class="card hidden">
